@@ -1,3 +1,5 @@
 class ListSerializer < ActiveModel::Serializer
-  attributes :id, :name, :goal_id
+  attributes :id, :name
+  has_one :goal
+  has_many :tasks
 end

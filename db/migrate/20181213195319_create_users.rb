@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :username
       t.string :password_digest
       t.string :email
-      t.integer :partner_id
+      t.references :partner, index: true
 
       t.timestamps
     end
