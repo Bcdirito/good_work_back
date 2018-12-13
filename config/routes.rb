@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :partners
+      resources :partners, only: [:get, :create, :new, :edit, :update, :show]
       resources :tasks
       resources :lists
       resources :goals
-      resources :users
+      resources :users, only: [:get, :create, :new, :edit, :update, :show]
     end
   end
 end
