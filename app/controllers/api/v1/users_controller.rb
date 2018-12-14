@@ -1,12 +1,19 @@
 class Api::V1::UsersController < ApplicationController
     def create
-        debugger
-        user = User.create(user_params)
-        debugger
+        user = User.create(user_params)        
         if user.valid?
             render json: user
         else
             render json: {"error" => user.errors.full_messages}, status: 422
+        end
+    end
+
+    def update
+        user = User.update(params[:id], user_params)
+        if user.valid?
+            render json: user
+        else
+            render json: user.errors.full_messages
         end
     end
 
