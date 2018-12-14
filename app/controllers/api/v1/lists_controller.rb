@@ -24,7 +24,7 @@ class Api::V1::ListsController < ApplicationController
     def destroy
         list = List.find(params[:id])
         if list.destroy
-            render json: {"message" => "List Has Been Deletes"}
+            render json: {"message" => "List Has Been Deleted"}
         else
             render json: {"error" => list.errors.full_messages}, status: 409
         end
