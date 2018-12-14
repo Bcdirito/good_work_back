@@ -1,6 +1,6 @@
 class Api::V1::ListsController < ApplicationController
     def index
-        render json: Index.all
+        render json: List.all
     end
 
     def create
@@ -9,6 +9,24 @@ class Api::V1::ListsController < ApplicationController
             render json: list
         else
             render json: {"error" => list.errors.full_messages}, status: 422
+        end
+    end
+
+    def update
+        list = List.update(params[:id], list_params)
+        if list.valid?
+            render json: list
+        else
+            render json: {"error" => list.errors.full_messages}, status: 422
+        end
+    end
+
+    def destroy
+        list = List.find(params[:id])
+        if list.destroy
+            render json: {"message" => "List Has Been Deletes"}
+        else
+            render json: {"error" => list.errors.full_messages}, status: 409
         end
     end
 
