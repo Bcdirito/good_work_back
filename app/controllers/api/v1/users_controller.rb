@@ -1,4 +1,8 @@
 class Api::V1::UsersController < ApplicationController
+    def index
+        render json: User.all
+    end
+    
     def create
         user = User.create(user_params)        
         if user.valid?
@@ -18,7 +22,12 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def destroy
-        render json: {"message" => "Account Has Been Deactivated"}
+        user = User.find(params[:id])
+        if user.destroy
+            render json: {"message" => "Account Has Been Deactivated"}
+        else
+            render json: {"error" => user.errors.full_messages}, status: 409
+        end
     end
 
     private
