@@ -1,6 +1,8 @@
 class Api::V1::UsersController < ApplicationController
     def create
+        debugger
         user = User.create(user_params)
+        debugger
         if user.valid?
             render json: user
         else

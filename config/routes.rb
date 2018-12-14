@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :partners, only: [:get, :create, :update, :show]
+      # resources :partners, only: [:get, :create, :update, :show]
       resources :tasks, only: [:create, :update, :destroy]
       resources :lists, only: [:create, :update, :destroy, :show]
       resources :goals, only: [:create, :update, :destroy, :show]

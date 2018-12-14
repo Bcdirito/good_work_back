@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 2018_12_13_200740) do
     t.string "username"
     t.string "password_digest"
     t.string "email"
-    t.integer "partner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
