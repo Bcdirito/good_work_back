@@ -12,6 +12,10 @@ class Api::V1::GoalsController < ApplicationController
         end
     end
 
+    def show
+        render json: Goal.find(params[:id])
+    end
+
     def update
         goal = Goal.update(params[:id], goal_params)
         if goal.valid?

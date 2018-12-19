@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create]
+    # skip_before_action :authorized, only: [:create, :index, :destroy]
 
     def index
         render json: User.all
@@ -13,6 +13,11 @@ class Api::V1::UsersController < ApplicationController
         else
             render json: {"error" => user.errors.full_messages}, status: 422
         end
+    end
+
+    def profile
+        user = current_user
+        render json: { user: UserSerializer.new(user)}, status: :accepted
     end
 
     def update
