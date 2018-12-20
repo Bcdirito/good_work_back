@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :partners
   namespace :api do
     namespace :v1 do
       # resources :partners, only: [:get, :create, :update, :show]
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
       resources :lists, only: [:index, :create, :update, :destroy, :show]
       resources :goals, only: [:index, :create, :update, :destroy, :show]
       resources :users, only: [:index, :create, :update, :show, :destroy]
+      resources :partners, only: [:index, :create, :update, :show, :destroy]
       post "/login", to: "auth#create"
       get "/profile", to: "users#profile"
     end

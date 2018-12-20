@@ -10,38 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_13_200740) do
+ActiveRecord::Schema.define(version: 2018_12_20_191804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "goals", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_goals_on_user_id"
   end
 
   create_table "lists", force: :cascade do |t|
     t.string "name"
-    t.integer "goal_id"
+    t.bigint "goal_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["goal_id"], name: "index_lists_on_goal_id"
   end
 
   create_table "partners", force: :cascade do |t|
     t.string "name"
     t.string "email"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_partners_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.integer "list_id"
+    t.bigint "list_id"
     t.string "title"
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_tasks_on_list_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,4 +57,5 @@ ActiveRecord::Schema.define(version: 2018_12_13_200740) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "partners", "users"
 end
