@@ -2,7 +2,7 @@ class CreateLists < ActiveRecord::Migration[5.2]
   def change
     create_table :lists do |t|
       t.string :name
-      t.integer :goal_id
+      t.references :goal, index: true
 
       t.timestamps
     end

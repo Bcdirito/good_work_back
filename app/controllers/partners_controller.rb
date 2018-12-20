@@ -1,2 +1,0 @@
-class PartnersController < ApplicationController
-end

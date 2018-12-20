@@ -1,3 +1,5 @@
 class GoalSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :name
+  attributes :id, :name
+  has_one :user
+  has_many :lists
 end
