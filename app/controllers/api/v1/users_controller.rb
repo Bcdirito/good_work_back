@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:index, :create, :destroy]
 
     def index
         render json: User.all
@@ -10,7 +10,7 @@ class Api::V1::UsersController < ApplicationController
         if user.valid?
             token = encode_token(user_id: user.id)
             render json: {user: UserSerializer.new(user), jwt: token }, status: :created
-            ApplicationMailer.welcome_mailer(user).deliver_now
+            UserMailer.welcome_email(user).deliver_now
         else
             render json: {"error" => user.errors.full_messages}, status: 422
         end
@@ -42,6 +42,6 @@ class Api::V1::UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:username, :password, :email)
+        params.permit(:username, :password, :email)
     end
 end
