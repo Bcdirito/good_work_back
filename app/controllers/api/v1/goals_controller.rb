@@ -26,6 +26,7 @@ class Api::V1::GoalsController < ApplicationController
     end
 
     def destroy
+        byebug
         goal = Goal.find(params[:id])
         goal_name = goal.name
         user = goal.user
@@ -33,7 +34,9 @@ class Api::V1::GoalsController < ApplicationController
         if goal.destroy
             render json: {"message" => "Goal Has Been Deleted"}
             GoalMailer.finished_goal(goal_name, user).deliver_now
-            GoalMailer.finished_goal_partner(goal_name, user, partner).deliver_now
+            if partner
+                GoalMailer.finished_goal_partner(goal_name, user, partner).deliver_now
+            end
         else
             render json: {"error" => goal.errors.full_messages}, status: 409
         end

@@ -26,6 +26,7 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def destroy
+        byebug
         list = List.find(params[:id])
         list_name = list.name
         goal_name = list.goal.name
@@ -34,7 +35,9 @@ class Api::V1::ListsController < ApplicationController
         if list.destroy
             render json: {"message" => "List Has Been Deleted"}
             ListMailer.finished_list(list_name, goal_name, user).deliver_now
-            ListMailer.finished_list_partner(list_name, user, partner)
+            if partner
+                ListMailer.finished_list_partner(list_name, user, partner)
+            end
         else
             render json: {"error" => list.errors.full_messages}, status: 409
         end
