@@ -11,6 +11,6 @@ class TaskMailer < ApplicationMailer
         @task_title = task_title
         @user = user
         @partner = partner
-        mail(to: `#{partner.email}`, subject: `#{user.name} Completed #{task.title}`)
+        mail(to: `#{partner.email}`, subject: `#{user.name} Completed #{task_title}!`)
     end
 end
