@@ -9,6 +9,8 @@ class Api::V1::PartnersController < ApplicationController
         partner = Partner.create(partner_params)
         if partner.valid?
             render json: partner
+            user = partner.user
+            PartnerMailer.welcome_partner_email(partner, user).deliver_now
         else
             render json: {"error" => partner.errors.full_messages}, status: 422
         end

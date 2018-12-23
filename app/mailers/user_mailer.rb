@@ -4,5 +4,4 @@ class UserMailer < ApplicationMailer
         @user = user
         mail(to: `#{user.email}`, subject: "Welcome to Good Work")
     end
-
 end

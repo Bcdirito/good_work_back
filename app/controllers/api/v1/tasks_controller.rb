@@ -23,8 +23,14 @@ class Api::V1::TasksController < ApplicationController
 
     def destroy
         task = Task.find(params[:id])
+        task_title = task.title
+        list = task.list
+        user = list.goal.user
+        partner = Partner.find_by(user_id: user.id)
         if task.destroy
             render json: {"message" => "Task Has Been Deleted"}
+            TaskMailer.finished_task(task_title, list, user).deliver_now
+            TaskMailer.finished_task_partner(task_title, user, partner).deliver_now
         else
             render json: {"error" => task.errors.full_messages}, status: 409
         end
