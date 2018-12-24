@@ -26,7 +26,6 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def destroy
-        byebug
         list = List.find(params[:id])
         list_name = list.name
         goal_name = list.goal.name
