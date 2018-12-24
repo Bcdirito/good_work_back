@@ -12,3 +12,4 @@ class GoalMailer < ApplicationMailer
         @partner = partner
         mail(to: `#{partner.email}`, subject: `Wow! #{user.name} Completed #{list_name}!`)
     end
+end
