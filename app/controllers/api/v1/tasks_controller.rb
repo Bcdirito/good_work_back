@@ -31,7 +31,7 @@ class Api::V1::TasksController < ApplicationController
             render json: {"message" => "Task Has Been Deleted"}
             TaskMailer.finished_task(task_title, list_name, user).deliver_now
             if partner
-                TaskMailer.finished_task_partner(task_title, user, partner).deliver_now
+                TaskMailer.partner_finished_task(task_title, user, partner).deliver_now
             end
         else
             render json: {"error" => task.errors.full_messages}, status: 409
