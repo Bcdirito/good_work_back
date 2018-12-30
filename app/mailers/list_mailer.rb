@@ -11,7 +11,6 @@ class ListMailer < ApplicationMailer
         @list_name = list_name
         @user = user
         @partner = partner
-        byebug
         mail(to: @partner.email, subject: "#{@user.name} Completed #{@list_name}!")
     end
 end
