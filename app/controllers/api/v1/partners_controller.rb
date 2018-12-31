@@ -1,6 +1,4 @@
 class Api::V1::PartnersController < ApplicationController
-    skip_before_action :authorized, only: [:index]
-
     def index
         render json: Partner.all
     end
