@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :partners, only: [:index, :create, :update, :show, :destroy]
       post "/login", to: "auth#create"
       get "/profile", to: "users#profile"
+      post "/partners/:id/message", to: "partners#message"
     end
   end
 end
