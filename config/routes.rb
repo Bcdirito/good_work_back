@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :doctors
   resources :partners
   namespace :api do
     namespace :v1 do
