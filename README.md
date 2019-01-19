@@ -22,3 +22,8 @@ Good Work is a stress and anxiety reducing app that utilizes goal tracking and p
   1. If you have successfully installed the gems and migrated the databases, type in "rails s" and hit enter.
   
   2. If this is successful, you will be on Ruby on Rails.
+
+## Debugging Notes
+  1. This app requires Ruby version 2.6.0. If you are using an earlier version, starting up the server will cause an error. To fix this, simply type "rvm default 2.6.0" in your terminal and hit enter. You will now be using this version.
+
+  2. If you need to update to a more current version of ruby, simply type in "brew install ruby". You can then check to see what version you are running by typing in "ruby -v". If it is an earlier version than 2.6.0, type in "rvm default 2.6.0". You should now be able to run the server.
