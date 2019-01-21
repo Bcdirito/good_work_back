@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_15_220144) do
+ActiveRecord::Schema.define(version: 2019_01_21_193107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_01_15_220144) do
 
   create_table "doctors", force: :cascade do |t|
     t.string "name"
-    t.string "email"
+    t.string "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 2019_01_15_220144) do
     t.index ["user_id"], name: "index_partners_on_user_id"
   end
 
+  create_table "practices", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "phone"
+    t.bigint "doctor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doctor_id"], name: "index_practices_on_doctor_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.bigint "list_id"
     t.string "title"
@@ -77,4 +87,5 @@ ActiveRecord::Schema.define(version: 2019_01_15_220144) do
   add_foreign_key "doctor_users", "doctors"
   add_foreign_key "doctor_users", "users"
   add_foreign_key "partners", "users"
+  add_foreign_key "practices", "doctors"
 end

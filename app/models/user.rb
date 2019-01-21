@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :goals
+  has_many :doctors, through: :doctor_users
   has_secure_password
 
   validates :username, uniqueness: true

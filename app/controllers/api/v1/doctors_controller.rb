@@ -1,4 +1,4 @@
-class API::V1::DoctorsController < ApplicationController
+class Api::V1::DoctorsController < ApplicationController
     def index
         render json: Doctor.all
     end
@@ -6,6 +6,7 @@ class API::V1::DoctorsController < ApplicationController
     def create
         doctor = Doctor.create(doctor_params)
         if doctor.valid?
+            DoctorUser.create(doctor_id: doctor.id, user_id: params[:user_id])
             render json: doctor
         else
             render json: {"error" => doctor.errors.full_messages}, status: 422
@@ -37,6 +38,6 @@ class API::V1::DoctorsController < ApplicationController
     private
 
     def doctor_params
-        params.require(:doctor).permit(:name, :email)
+        params.require(:doctor).permit(:name, :bio)
     end
 end
