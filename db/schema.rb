@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2019_01_21_193107) do
   create_table "doctors", force: :cascade do |t|
     t.string "name"
     t.string "bio"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

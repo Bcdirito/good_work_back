@@ -1,4 +1,6 @@
 class Api::V1::DoctorsController < ApplicationController
+    skip_before_action :authorized, only: [:destroy]
+
     def index
         render json: Doctor.all
     end
@@ -38,6 +40,6 @@ class Api::V1::DoctorsController < ApplicationController
     private
 
     def doctor_params
-        params.require(:doctor).permit(:name, :bio)
+        params.require(:doctor).permit(:name, :bio, :image)
     end
 end
