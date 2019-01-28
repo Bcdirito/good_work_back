@@ -1,9 +1,10 @@
-class Api::V1::PracticeController < ApplicationController
+class Api::V1::PracticesController < ApplicationController
   def index
     render json: Practice.all
   end
 
   def create
+    byebug
       practice = Practice.create(practice_params)
       if practice.valid?
           render json: practice

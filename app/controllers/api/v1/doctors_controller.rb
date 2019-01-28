@@ -9,9 +9,17 @@ class Api::V1::DoctorsController < ApplicationController
         doctor = Doctor.create(doctor_params)
         if doctor.valid?
             DoctorUser.create(doctor_id: doctor.id, user_id: params[:user_id])
+            create_practices(doctor, params[:practices])
             render json: doctor
         else
             render json: {"error" => doctor.errors.full_messages}, status: 422
+        end
+    end
+
+    def create_practices(doctor, practices)
+        practices.each do |practice|
+            address = "#{practice[:visit_address][:street]}, #{practice[:visit_address][:city]}, #{practice[:visit_address][:state]} #{practice[:visit_address][:zip]}"
+            Practice.create(doctor_id: doctor.id, name: practice[:name], address: address, phone: practice[:phones][0][:number] )
         end
     end
 
