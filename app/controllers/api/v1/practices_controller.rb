@@ -4,17 +4,12 @@ class Api::V1::PracticesController < ApplicationController
   end
 
   def create
-    byebug
       practice = Practice.create(practice_params)
       if practice.valid?
           render json: practice
       else
           render json: {"error" => practice.errors.full_messages}, status: 422
       end
-  end
-
-  def show
-      render json: practice.find(params[:id])
   end
 
   def update
