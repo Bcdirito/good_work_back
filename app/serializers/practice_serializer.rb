@@ -1,5 +1,5 @@
 class PracticeSerializer < ActiveModel::Serializer
-    attributes :id, :name, :bio
+    attributes :id, :name, :address, :phone
     has_one :doctor
   end
   
