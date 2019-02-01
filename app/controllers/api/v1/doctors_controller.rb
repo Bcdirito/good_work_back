@@ -1,8 +1,9 @@
 class Api::V1::DoctorsController < ApplicationController
     skip_before_action :authorized, only: [:destroy]
-
+    
     def index
-        render json: Doctor.all
+        obj = filter(@user)
+        render json: obj
     end
 
     def create
@@ -21,6 +22,16 @@ class Api::V1::DoctorsController < ApplicationController
             address = "#{practice[:visit_address][:street]}, #{practice[:visit_address][:city]}, #{practice[:visit_address][:state]} #{practice[:visit_address][:zip]}"
             Practice.create(doctor_id: doctor.id, name: practice[:name], address: address, phone: practice[:phones][0][:number] )
         end
+    end
+
+    def filter(user)
+        arr = []
+        Doctor.all.each do |doc|
+            if doc.users.ids.include?(user.id)
+                arr << {doctor: doc, practices: doc.practices}
+            end
+        end
+        arr
     end
 
     def show
