@@ -26,10 +26,8 @@ class Api::V1::DoctorsController < ApplicationController
 
     def filter(user)
         arr = []
-        Doctor.all.each do |doc|
-            if doc.users.ids.include?(user.id)
-                arr << {doctor: doc, practices: doc.practices}
-            end
+        user.doctors.each do |doc|
+            arr << {profile: doc, practices: doc.practices}
         end
         arr
     end
