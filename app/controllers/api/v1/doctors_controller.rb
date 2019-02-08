@@ -48,7 +48,14 @@ class Api::V1::DoctorsController < ApplicationController
 
     def destroy
         doctor = Doctor.find(params[:id])
-        if doctor.destroy
+        relationship = DoctorUser.find_by(doctor_id: doctor.id, user_id: params[:user][:id])
+        practices = doctor.practices
+        if relationship.destroy
+            if doctor.users.length === 0
+                if practices.destroy
+                    doctor.destroy
+                end
+            end
             render json: {"message" => "Doctor Has Been Deleted"}
         else
             render json: {"error" => doctor.errors.full_messages}, status: 409
