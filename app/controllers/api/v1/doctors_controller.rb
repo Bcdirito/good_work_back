@@ -11,7 +11,8 @@ class Api::V1::DoctorsController < ApplicationController
         if doctor.valid?
             DoctorUser.create(doctor_id: doctor.id, user_id: params[:user_id])
             create_practices(doctor, params[:practices])
-            render json: doctor
+            obj = {profile: doctor, practices: doctor.practices}
+            render json: obj
         else
             render json: {"error" => doctor.errors.full_messages}, status: 422
         end
