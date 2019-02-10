@@ -31,11 +31,13 @@ class Api::V1::GoalsController < ApplicationController
         user = goal.user
         partner = Partner.find_by(user_id: user.id)
         if goal.destroy
-            render json: {"message" => "Goal Has Been Deleted"}
-            GoalMailer.finished_goal(goal_name, user).deliver_now
-            if partner != nil
-                GoalMailer.finished_goal_partner(goal_name, user, partner).deliver_now
+            if params[:complete] == true
+                GoalMailer.finished_goal(goal_name, user).deliver_now
+                if partner != nil
+                    GoalMailer.finished_goal_partner(goal_name, user, partner).deliver_now
+                end
             end
+            render json: {"message" => "Goal Has Been Deleted"}
         else
             render json: {"error" => goal.errors.full_messages}, status: 409
         end
