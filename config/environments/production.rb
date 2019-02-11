@@ -80,13 +80,14 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.action_mailer.default_url_options = { :host => "https://good-work-backend.herokuapp.com/"}
   config.action_mailer.delivery_method = :smtp
    config.action_mailer.smtp_settings = {
       address: 'smtp.gmail.com',
       port: 587,
-      domain: "https://good-work-backend.herokuapp.com/",
-      user_name: "goodworkmailer@gmail.com",
-      password: "B1anCat3",
+      domain: Rails.application.secrets.domain,
+      user_name: Rails.application.secrets.email_user_name,
+      password: Rails.application.secrets.email_password,
       authentication: 'plain',
       enable_starttls_auto: true
     }
