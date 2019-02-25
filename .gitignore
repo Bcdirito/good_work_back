@@ -23,4 +23,6 @@
 /config/master.key
 
 /config/secrets.yml
-sendgrid.env
+.env
+Procfile
+
