@@ -26,10 +26,7 @@ class Api::V1::DoctorsController < ApplicationController
     end
 
     def filter(user)
-        arr = []
-        user.doctors.each do |doc|
-            arr << {profile: doc, practices: doc.practices}
-        end
+        arr = user.doctors.map {|doc| {profile: doc, practices: doc.practices}}
         arr
     end
 
