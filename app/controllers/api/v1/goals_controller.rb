@@ -1,6 +1,9 @@
 class Api::V1::GoalsController < ApplicationController
     def index
-        render json: Goal.all
+        goals = @user.goals.map do |goal|
+            {id: goal.id, name: goal.name}
+        end
+        render json: goals
     end
 
     def create
@@ -13,7 +16,12 @@ class Api::V1::GoalsController < ApplicationController
     end
 
     def show
-        render json: Goal.find(params[:id])
+        goal = Goal.find(params[:id])
+        obj = {id: goal.id, name: goal.name}
+        obj[:lists] = goal.lists.map do |ind|
+            {id: ind.id, name: ind.name, tasks: ind.tasks}
+        end
+        render json: obj
     end
 
     def update
