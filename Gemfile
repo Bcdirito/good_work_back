@@ -49,3 +49,5 @@ gem 'active_model_serializers'
 gem "jwt", "~> 2.1"
 
 gem "dotenv"
+
+gem 'rb-readline', '~> 0.5.3'
