@@ -18,7 +18,7 @@ class Api::V1::UsersController < ApplicationController
 
     def profile
         user = current_user
-        render json: { user: UserSerializer.new(user)}, status: :accepted
+        render json: { user: UserSerializer.new(user), partner: user.partner}, status: :accepted
     end
 
     def update
