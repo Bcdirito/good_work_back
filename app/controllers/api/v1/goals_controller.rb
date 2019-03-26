@@ -1,7 +1,7 @@
 class Api::V1::GoalsController < ApplicationController
     def index
         goals = @user.goals.map do |goal|
-            {id: goal.id, name: goal.name}
+            {goal: GoalSerializer.new(goal)}
         end
         render json: goals
     end
