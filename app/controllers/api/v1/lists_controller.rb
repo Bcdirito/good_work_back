@@ -5,6 +5,7 @@ class Api::V1::ListsController < ApplicationController
 
     def create
         list = List.create(list_params)
+        byebug
         if list.valid?
             render json: list
         else
