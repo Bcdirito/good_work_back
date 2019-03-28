@@ -8,8 +8,8 @@ class Api::V1::GoalsController < ApplicationController
 
     def create
         goal = Goal.create(goal_params)
-        goal_obj = {id: goal.id, name: goal.name}
         if goal.valid?
+            goal_obj = {id: goal.id, name: goal.name}
             render json: goal_obj
         else
             render json: {"error" => goal.errors.full_messages}, status: 422

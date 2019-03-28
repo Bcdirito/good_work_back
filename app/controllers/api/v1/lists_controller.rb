@@ -4,10 +4,10 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def create
-        list = List.create(list_params)
-        byebug
-        if list.valid?
-            render json: list
+        new_list = List.create(list_params)
+        if new_list.valid?
+            list_obj = {id: new_list.id, name: new_list.name, tasks: new_list.tasks}
+            render json: list_obj
         else
             render json: {"error" => list.errors.full_messages}, status: 422
         end
@@ -16,6 +16,7 @@ class Api::V1::ListsController < ApplicationController
     def update
         list = List.update(params[:id], list_params)
         if list.valid?
+            list_obj = {id: new_list.id, name: new_list.name, tasks: new_list.tasks}
             render json: list
         else
             render json: {"error" => list.errors.full_messages}, status: 422
