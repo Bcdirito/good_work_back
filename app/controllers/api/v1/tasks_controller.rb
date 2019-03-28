@@ -5,6 +5,7 @@ class Api::V1::TasksController < ApplicationController
 
     def create
         task = Task.create(task_params)
+        byebug
         if task.valid?
             render json: task
         else
@@ -14,8 +15,10 @@ class Api::V1::TasksController < ApplicationController
 
     def update
         task = Task.update(params[:id], task_params)
+        byebug
         if task.valid?
-            render json: task
+            task_obj = {id: task.id, title: task.title, content: task.content}
+            render json: task_obj
         else
             render json: task.errors.full_messages
         end
