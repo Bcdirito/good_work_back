@@ -1,5 +1,6 @@
 class Api::V1::PartnersController < ApplicationController
     def index
+        byebug
         render json: Partner.all
     end
 
