@@ -7,8 +7,7 @@ class Api::V1::DoctorsController < ApplicationController
     def create
         doctor = Doctor.create(doctor_params)
         if doctor.valid?
-            byebug
-            DoctorUser.create(doctor_id: doctor.id, user_id: params[:user_id])
+            DoctorUser.create(doctor_id: doctor.id, user_id: @user.id)
             create_practices(doctor, params[:practices])
             obj = {profile: doctor, practices: doctor.practices}
             render json: obj
