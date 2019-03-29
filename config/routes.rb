@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :practices, only: [:index, :create, :update, :destroy]
       post "/login", to: "auth#create"
       get "/profile", to: "users#profile"
-      post "/partners/:id/message", to: "partners#message"
+      post "/partners/message", to: "partners#message"
       patch "/partners/update", to: "partners#update"
       delete "partners/delete", to: "partners#destroy"
     end

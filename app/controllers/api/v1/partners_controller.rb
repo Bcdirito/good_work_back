@@ -43,11 +43,11 @@ class Api::V1::PartnersController < ApplicationController
     end
 
     def message
-        partner = Partner.find(params[:id])
-        user = partner.user
-        subject = params[:subject]
-        message = params[:message]
-        if partner
+        if @user.partner
+            partner = @user.partner
+            user = @user
+            subject = params[:subject]
+            message = params[:message]
             render json: {"message" => "Message Sent!"}
             PartnerMailer.partner_message(partner, user, subject, message).deliver_now
         else

@@ -1,6 +1,4 @@
 class Api::V1::DoctorsController < ApplicationController
-    skip_before_action :authorized, only: [:destroy]
-    
     def index
         obj = filter(@user)
         render json: obj
@@ -9,6 +7,7 @@ class Api::V1::DoctorsController < ApplicationController
     def create
         doctor = Doctor.create(doctor_params)
         if doctor.valid?
+            byebug
             DoctorUser.create(doctor_id: doctor.id, user_id: params[:user_id])
             create_practices(doctor, params[:practices])
             obj = {profile: doctor, practices: doctor.practices}
@@ -45,7 +44,8 @@ class Api::V1::DoctorsController < ApplicationController
 
     def destroy
         doctor = Doctor.find(params[:id])
-        relationship = DoctorUser.find_by(doctor_id: doctor.id, user_id: params[:user][:id])
+        byebug
+        relationship = DoctorUser.find_by(doctor_id: doctor.id, user_id: @user.id)
         practices = doctor.practices
         if relationship.destroy
             if doctor.users.length === 0
