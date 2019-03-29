@@ -1,13 +1,20 @@
 class Api::V1::PartnersController < ApplicationController
     def index
-        byebug
-        render json: Partner.all
+        if @user.partner
+            partner_obj = {name: @user.partner.name, email: @user.partner.email}
+            render json: partner_obj
+        else
+            render json: {"message" => "No Partner Found!"}
+        end
     end
 
     def create
-        partner = Partner.create(partner_params)
+        partner = Partner.new(partner_params)
+        partner[:user_id] = @user.id
+        partner.save
         if partner.valid?
-            render json: partner
+            partner_obj = {name: partner.name, email: partner.email}
+            render json: partner_obj
             user = partner.user
             PartnerMailer.welcome_partner_email(partner, user).deliver_now
         else
@@ -16,17 +23,18 @@ class Api::V1::PartnersController < ApplicationController
     end
 
     def update
-        byebug
-        partner = Partner.update(params[:id], partner_params)
+        partner = @user.partner
+        partner.update(partner_params)
         if partner.valid?
-            render json: partner
+            partner_obj = {name: partner.name, email: partner.email}
+            render json: partner_obj
         else
             render json: {"error" => partner.errors.full_messages}
         end
     end
 
     def destroy
-        partner = Partner.find(params[:id])
+        partner = @user.partner
         if partner.destroy
             render json: {"message" => "Partner Has Been Deleted"}
         else
@@ -50,6 +58,6 @@ class Api::V1::PartnersController < ApplicationController
     private
 
     def partner_params
-        params.require(:partner).permit(:name, :email, :user_id)
+        params.require(:partner).permit(:name, :email)
     end
 end
