@@ -16,6 +16,7 @@ class Api::V1::PartnersController < ApplicationController
     end
 
     def update
+        byebug
         partner = Partner.update(params[:id], partner_params)
         if partner.valid?
             render json: partner
